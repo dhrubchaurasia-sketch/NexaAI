@@ -11,6 +11,7 @@ function ChatWindow(){
         setLoading(true);
         setNewChat(false);
         console.log("message",prompt,"threadId",currThreadId);
+        const API_URL = import.meta.env.VITE_API_URL;
         const options = {
             method:"POST",
             headers:{
@@ -22,7 +23,7 @@ function ChatWindow(){
             })
         };
         try{
-            const response = await fetch("http://localhost:8080/api/chat",options);
+            const response = await fetch(`${API_URL}/api/chat`,options);
             const res= await response.json();
             console.log(res);
             setReply(res.reply);
@@ -68,7 +69,7 @@ function ChatWindow(){
             isOpen && 
             <div className="dropDown">
                 <div className="dropDownItems"> <i className="fa-solid fa-gear"></i> Settings</div>
-                <div className="dropDownItems"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>        
+                <div className="dropDownItems"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>        
                 <div className="dropDownItems"><i className="fa-solid fa-right-from-bracket"></i> Log Out</div>
             </div>
         }

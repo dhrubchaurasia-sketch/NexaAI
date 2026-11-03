@@ -4,10 +4,10 @@ import { MyContext } from "./MyContext.jsx";
 import {v1 as uuidv1} from "uuid";
 function Sidebar(){
   const {allThreads,setAllThreads,currThreadId,setNewChat,setPrompt,setReply,setCurrThreadId,setPrevChats} = useContext(MyContext);
-  
+  const API_URL = import.meta.env.VITE_API_URL;
   const getAllThreads = async() =>{
     try{
-      const response = await fetch("http://localhost:8080/api/threads");
+      const response = await fetch(`${API_URL}/api/threads`);
       const res = await response.json();
       const filteredData = res.map(thread =>({
         threadId:thread.threadId,
@@ -35,7 +35,7 @@ function Sidebar(){
   const changeThread = async (newThreadId)=>{
     setCurrThreadId(newThreadId);
     try{
-      const response=await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+      const response=await fetch(`${API_URL}/api/thread/${newThreadId}`);
       const res= await response.json();
       console.log(res);
       setPrevChats(res);
@@ -49,7 +49,7 @@ function Sidebar(){
 
   const deleteThread = async (threadId) =>{
     try{
-      const response = await fetch(`http://localhost:8080/api/thread/${threadId}`,{method:"DELETE"});
+      const response = await fetch(`${API_URL}/api/thread/${threadId}`,{method:"DELETE"});
       const res = await  response.json();
       console.log(res);
 
